@@ -35,4 +35,33 @@ class ChartController extends Controller
         ]);
 
     }
+
+    public function filter(Request $request){
+        $data = $request->all();
+        $idArea = $request->area ;
+        $area = StoreArea::all();
+        $are = DB::table('store_area')
+        ->join('store', 'store_area.area_id', 'store.area_id')
+        ->join('report_product', 'store.store_id', 'report_product.store_id')
+        ->select('area_name', \DB::raw('sum(compliance) as jumlah'))->groupBy('area_name')
+        ->where('store.area_id', $idArea)
+        ->get();
+        
+        $name = [];
+        $jumlah = [];
+        $allDataReport = ReportProduct::all()->count();
+
+        foreach ($are as $areax => $values) {
+            $name[$areax] = $values->area_name;
+            $jumlah[$areax] = number_format($values->jumlah/$allDataReport * 100 , 2) ;
+        };
+
+        return view('welcome', [
+            'area' => $area,
+            'ara' => $are,
+            'name' => $name,
+            'jumlah' => $jumlah
+        ]);
+
+    }
 }

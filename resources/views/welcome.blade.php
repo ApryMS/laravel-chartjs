@@ -27,12 +27,12 @@
                     <strong>Data sertifikat</strong>
                 </div>
                 <div class="card-body">
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('search-filter') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">    
                             <div class="form-group col-md-3">
-                                <label for="bulan" id="bulan" class="text-muted d-block">Area</label>
-                                    <select name="bulan" class="custom-select" required>
+                                <label for="area" id="area" class="text-muted d-block">Area</label>
+                                    <select name="area" class="custom-select" required>
                                         <option value="">Select</option>
                                         @foreach ($area as $data)
                                         <option value="{{ $data->area_id }}">{{ $data->area_name }}</option>

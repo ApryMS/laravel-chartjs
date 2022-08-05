@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [ChartController::class, 'index']);
+Route::post('/filter', [ChartController::class, 'filter'])->name('search-filter');
