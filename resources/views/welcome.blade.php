@@ -9,10 +9,10 @@
         <title>@yield('title')</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="/css/styles.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-       
         <main>
             <div class="container-fluid px-4">
                 <h1 class="mt-4">Dashboard</h1>
@@ -24,7 +24,7 @@
            <div class="col-md-12">
                 <div class="card">
                 <div class="card-header">
-                    <strong>Data sertifikat</strong>
+                    <strong>Parameter Filter</strong>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('search-filter') }}" method="POST" enctype="multipart/form-data">
@@ -41,11 +41,11 @@
                             </div>
                         <div class="form-group col-md-3">
                             <label class="text-muted">Select Date From</label>
-                            <input type="date" id="date_expired" name="date_expired"  class="form-control">
+                            <input type="date" id="date_from" name="date_from" required  class="form-control">
                         </div>
                         <div class="form-group col-md-3">
                             <label class="text-muted">Select Date To</label>
-                            <input type="date" id="date_expired" name="date_expired"  class="form-control">
+                            <input type="date" id="date_end" name="date_end" required class="form-control">
                         </div>
                         <div class="col-md-3 " style="margin-top: -25px">
                             <button type="submit" class="btn btn-primary mt-5 float-right">View</button>
@@ -55,19 +55,44 @@
                     </form>
                 </div>
             </div>
-    </div>
+            </div>
 
-        <div class="col-xl-12 mt-4">
+            <div class="col-xl-12 mt-4">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-bar me-1"></i>
-                    Bar Chart Example
+                    Bar Chart 
                 </div>
-                <div class="card-body mt-5"><canvas id="myBarChart" width="100%" height="35"></canvas></div>
+                <div class="card-body mt-2">
+                    <canvas id="myBarChart" width="100%" height="35">
+                    </canvas>
+                </div>
             </div>
-        </div>
+            </div>
+            <div class="col-xl-12 mt-4">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Brand</th>
 
-        </div>
+                        @foreach ($name as $data)
+                            <th scope="col">{{ $data }}</th>
+                        @endforeach
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        @foreach ($jumlah as $data)
+                            <th scope="col">{{ $data }}</th>
+                        @endforeach
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+            </div>
+
+            </div>
     </div>
         </main>
         
@@ -112,7 +137,7 @@
                 yAxes: [{
                     ticks: {
                     min: 0,
-                    max: 30,
+                    max: 100,
                     maxTicksLimit: 10
                     },
                     gridLines: {
